@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Concurrent Ticket Booking</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script defer src="/js/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">College project · shared resource management</p>
+      <h1>Ticket Desk</h1>
+    </div>
+    <span id="api-status" class="status-pill">Connecting…</span>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Step 1</p>
+          <h2>Your user</h2>
+        </div>
+        <span id="user-label" class="muted">Not registered on this device</span>
+      </div>
+      <form id="user-form" class="form-grid">
+        <label>Name<input id="user-name" maxlength="120" required placeholder="e.g. Anjali"></label>
+        <label>Email<input id="user-email" type="email" required placeholder="you@example.com"></label>
+        <button type="submit" class="button">Create / select user</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Step 2</p>
+          <h2>Choose an event and seat</h2>
+        </div>
+        <button id="refresh-events" class="button secondary">Refresh</button>
+      </div>
+      <label class="event-select">Event<select id="events"></select></label>
+      <div id="event-details" class="muted"></div>
+      <div id="seat-grid" class="seat-grid" aria-live="polite"></div>
+      <p id="selection" class="selection-note">Select an available seat to continue.</p>
+      <div class="button-row">
+        <button id="book-seat" class="button" disabled>Book selected seat</button>
+        <button id="reserve-seat" class="button secondary" disabled>Reserve temporarily</button>
+        <button id="wait-seat" class="button secondary" disabled>Join waiting list</button>
+      </div>
+      <div id="reservation-payment" class="payment-box" hidden>
+        <span id="reservation-label"></span>
+        <button id="pay-success" class="button">Simulate payment success</button>
+        <button id="pay-failure" class="button danger">Simulate payment failure</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Your tickets</p>
+          <h2>Bookings</h2>
+        </div>
+        <button id="refresh-bookings" class="button secondary">Refresh</button>
+      </div>
+      <div id="bookings-list" class="table-wrap muted">Create or select a user to view bookings.</div>
+      <div id="reservation-offers"></div>
+    </section>
+
+    <section id="admin-panel" class="panel admin-panel" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Module 5</p>
+          <h2>Admin monitoring</h2>
+        </div>
+        <button id="refresh-admin" class="button secondary">Refresh metrics</button>
+      </div>
+      <div id="admin-stats" class="metrics-grid"></div>
+      <div class="admin-actions">
+        <button id="check-consistency" class="button secondary">Check database consistency</button>
+        <button id="show-scheduling" class="button secondary">Compare schedulers</button>
+        <button id="show-deadlock" class="button secondary">Run deadlock demo</button>
+        <button id="show-audit" class="button secondary">Show recent audit log</button>
+      </div>
+      <pre id="admin-output" class="output-box" aria-live="polite">Monitoring results appear here.</pre>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <footer>Concurrent Ticket Booking · PostgreSQL transactions + row locks + a bounded worker queue</footer>
+</body>
+</html>

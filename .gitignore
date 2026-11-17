@@ -1,0 +1,8 @@
+.env
+build/
+out/
+.vs/
+.vscode/
+__pycache__/
+*.py[cod]
+
